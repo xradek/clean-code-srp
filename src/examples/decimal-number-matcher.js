@@ -30,6 +30,7 @@ class DecimalNumberMatcher {
     let resultOfValidation = new ValidationResult();
     const DefaultNumberOfDigits = 11;
     const MaxNumberOfDigits = this.params.length > 0 ? this.params[0] : DefaultNumberOfDigits;
+    const MaxNumberOfDecimalDigits = this.params.length == 2 ? this.params[1] : null;
 
     // 1. Is the validated string a number?
     let validNumber;
@@ -46,7 +47,7 @@ class DecimalNumberMatcher {
     }
 
     // 3. Does the number have a correct number of decimal digits?
-    if (this.params.length === 2 && validNumber.decimalPlaces() > this.params[1]) {
+    if (MaxNumberOfDecimalDigits && validNumber.decimalPlaces() > MaxNumberOfDecimalDigits) {
       resultOfValidation.addInvalidTypeError("doubleNumber.e003", "The value exceeded maximum number of decimal places.");
     }
 
